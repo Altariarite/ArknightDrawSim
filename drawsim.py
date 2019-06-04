@@ -68,7 +68,7 @@ def draw_with_history(history) -> Card:
     else:
         return (result[0],0)
 
-#输入时间和已经抽卡的数量，返回多次抽卡结果
+#输入次数和已经抽卡的数量，返回多次抽卡结果
 def multi_draw(time,history):
     t = []
     h = history
