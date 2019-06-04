@@ -91,10 +91,10 @@ def keep_drawing(cards,number)->int:
         # keep drawing
         result = draw_with_history(h)
         draws+=1
-        if  result in cards: #抽到目标
-            count+=1
-            if cards == [(6,0),(6,1)]:
+        if result in [(6,0),(6,1)]:
                 h=0 #六星重置计数
+        if  result in cards: #抽到目标
+            count+=1     
             if count == number:
                 return draws
         h+=1
