@@ -129,15 +129,15 @@ def keep_drawing(cards,number)->int:
 # 返回平均抽数和standard dev#
 # print(keep_drawing((5,1),1))
 
-print(keep_drawing([(6,0),(6,1)],2))
 size = 50000
 t = [] 
 number = 1
+cards = [(6,1)]
 for i in range(size):
-    t.append(keep_drawing([(6,0),(6,1)],1))
+    t.append(keep_drawing(cards,number))
 mean = stats.mean(t)
 std = stats.stdev(t)
-print("in %d simulation, it takes an average of %d with a stdev of %.2f draw(s) to draw %d %s" %(size,mean,std,number,[(6,0),(6,1)]))
+print("in %d simulation, it takes an average of %d with a stdev of %.2f draw(s) and to draw %d %s" %(size,mean,std,number,cards))
 
 
 # size = 1000
