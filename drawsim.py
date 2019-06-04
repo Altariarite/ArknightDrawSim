@@ -4,8 +4,8 @@ import statistics as stats
 import math
 Card = (int,int)
 # 模拟N次抽卡，已经不使用
-def draw(time): 
-    
+def draw(time):
+
     drawn = []
     history = 0
     bonus = 0
@@ -26,9 +26,9 @@ def draw(time):
         )
         #没抽到六星增加计数,抽到归零
         if 6 == result[0]: history = 0
-        else: 
+        else:
             history += 1
-        
+
         if result[0]==5 or result[0]==6:
             #决定是否是up
             up = random.randint(0,1)
@@ -60,7 +60,7 @@ def draw_with_history(history) -> Card:
         population = [3,4,5,6],
         weights = chance,
         k = 1
-    ) 
+    )
     #决定是否up
     if result[0] ==5 or result[0]==6:
         up = random.randint(0,1)
@@ -94,7 +94,7 @@ def keep_drawing(cards,number)->int:
         if result in [(6,0),(6,1)]:
                 h=0 #六星重置计数
         if  result in cards: #抽到目标
-            count+=1     
+            count+=1
             if count == number:
                 return draws
         h+=1
@@ -102,7 +102,7 @@ def keep_drawing(cards,number)->int:
 # 进行N次模拟
 
 # size = 50000
-# count = 0 
+# count = 0
 # for i in range(size):
 #     card = multi_draw(67,0)
 #     result=check(card)
@@ -119,7 +119,7 @@ def keep_drawing(cards,number)->int:
 
 #多少抽出一个up五星？
 # size = 10000
-# s= 0 
+# s= 0
 # for i in range(size):
 #     s += keep_drawing((5,1))
 # print("in %d simulation, it takes an average of %d draw(s) to draw a %s" %(size,s/size,(5,1)))
@@ -129,28 +129,49 @@ def keep_drawing(cards,number)->int:
 # 返回平均抽数和standard dev#
 # print(keep_drawing((5,1),1))
 
-size = 50000
-t = [] 
-number = 1
-cards = [(6,1)]
-for i in range(size):
-    t.append(keep_drawing(cards,number))
-mean = stats.mean(t)
-std = stats.stdev(t)
-print("in %d simulation, it takes an average of %d with a stdev of %.2f draw(s) and to draw %d %s" %(size,mean,std,number,cards))
+def DrawUntilMatch(card,num,iter):
+    cards = [(1,0),(2,0),(3,0),(4,0),(5,0),(5,1),(6,0),(6,1)]
+    match_list = cards[cards.index(card):]
+    result = []
+
+    for i in range(iter):
+        result.append(keep_drawing(match_list,num))
+    return result
+
+def DrawUntilMatchSpecific(card,num,iter):
+    #cards = [(1,0),(2,0),(3,0),(4,0),(5,0),(5,1),(6,0),(6,1)]
+    match_list = [card]
+    result = []
+
+    for i in range(iter):
+        result.append(keep_drawing(match_list,num))
+    return result
+
+
+def main():
+    size = 50000
+    t = []
+    number = 1
+    cards = [(6,1)]
+    for i in range(size):
+        t.append(keep_drawing(cards,number))
+    mean = stats.mean(t)
+    std = stats.stdev(t)
+    print("in %d simulation, it takes an average of %d with a stdev of %.2f draw(s) and to draw %d %s" %(size,mean,std,number,cards))
+
 
 
 # size = 1000
-# count = 0 
-# t = 
+# count = 0
+# t =
 # for i in range(size):
 #     time = 1
 #     while(True): #抽到出六星为止
 #         result = check(draw(time))
 #         if result[(6,1)]==1:
-#             count +=1 
+#             count +=1
 #             break
-#         else: 
+#         else:
 #             time+=1
 #      += time
 
@@ -164,3 +185,5 @@ print("in %d simulation, it takes an average of %d with a stdev of %.2f draw(s) 
 #         count +=1
 # print("%d in %d simulation" %(count,size))
 #十连双黄的概率有多大？
+if __name__ == "__main__":
+    main()
