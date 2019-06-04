@@ -38,7 +38,7 @@ def draw(time):
     return drawn
 
 #查看抽卡结果，返回一个统计的dictionary
-def check(cards: Card):
+def check(cards):
     d = {(3,0): 0, (4,0):0, (5,0) :0, (5,1):0, (6,0):0, (6,1):0}
     for card in cards:
             d[card]+=1
@@ -130,7 +130,7 @@ def keep_drawing(cards,number)->int:
 # print(keep_drawing((5,1),1))
 
 def DrawUntilMatch(card,num,iter):
-    cards = [(1,0),(2,0),(3,0),(4,0),(5,0),(5,1),(6,0),(6,1)]
+    cards = [(3,0),(4,0),(5,0),(5,1),(6,0),(6,1)]
     match_list = cards[cards.index(card):]
     result = []
 
@@ -138,9 +138,8 @@ def DrawUntilMatch(card,num,iter):
         result.append(keep_drawing(match_list,num))
     return result
 
-def DrawUntilMatchSpecific(card,num,iter):
+def DrawUntilMatchSpecific(match_list,num,iter):
     #cards = [(1,0),(2,0),(3,0),(4,0),(5,0),(5,1),(6,0),(6,1)]
-    match_list = [card]
     result = []
 
     for i in range(iter):
